@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ICDL المستوى الأول | منصة الرواد التعليمية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['Noto Kufi Arabic', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Kufi Arabic', 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #06060f; }
+        ::-webkit-scrollbar-thumb { background: #1e1e3a; border-radius: 4px; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --c1: #06b6d4; --c2: #8b5cf6; --c3: #f43f5e; --c4: #f59e0b;
+            --bg: #06060f; --card: rgba(15,15,35,0.7); --border: rgba(255,255,255,0.06);
+        }
+        body { background: var(--bg); }
+
+        @keyframes clipInUp {
+            0% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); transform: translateY(10%); }
+            100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); transform: translateY(0); }
+        }
+        @keyframes fadeInUp { 0% { opacity:0; transform:translateY(24px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { 0% { opacity:0; } 100% { opacity:1; } }
+        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+        @keyframes pulse-ring { 0% { transform:scale(0.8); opacity:1; } 100% { transform:scale(2); opacity:0; } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+        @keyframes correctPop { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
+        @keyframes slideUp { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+        @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(139,92,246,0.15)} 50%{box-shadow:0 0 40px rgba(139,92,246,0.3)} }
+        @keyframes orb-float-1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(30px,-20px)} 66%{transform:translate(-20px,15px)} }
+        @keyframes orb-float-2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-25px,20px)} 66%{transform:translate(15px,-25px)} }
+
+        .anim-clip { animation: clipInUp 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+        .anim-fade-up { animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .delay-1 { animation-delay:.1s } .delay-2 { animation-delay:.2s } .delay-3 { animation-delay:.3s }
+        .delay-4 { animation-delay:.4s } .delay-5 { animation-delay:.5s } .delay-6 { animation-delay:.6s }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-warm {
+            background: linear-gradient(135deg, var(--c4), var(--c3), var(--c2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .shimmer-text {
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c1));
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+        .glass { background: var(--card); backdrop-filter: blur(20px); border: 1px solid var(--border); }
+        .glass-hover:hover { border-color: rgba(139,92,246,0.3); box-shadow: 0 0 30px rgba(139,92,246,0.08); }
+
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+        .orb-1 { width:300px; height:300px; background:rgba(6,182,212,0.08); top:10%; right:-5%; animation:orb-float-1 20s ease-in-out infinite; }
+        .orb-2 { width:250px; height:250px; background:rgba(139,92,246,0.08); bottom:10%; left:-5%; animation:orb-float-2 18s ease-in-out infinite; }
+        .orb-3 { width:200px; height:200px; background:rgba(244,63,94,0.06); top:50%; left:40%; animation:orb-float-1 22s ease-in-out infinite; }
+
+        .grid-bg {
+            background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .topic-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .topic-card:hover { transform: translateY(-6px); }
+        .topic-card .icon-wrap { transition: all 0.4s ease; }
+        .topic-card:hover .icon-wrap { transform: scale(1.1); }
+
+        .quiz-option { transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+        .quiz-option:active:not(.answered) { transform: scale(0.98); }
+        .quiz-option.correct { border-color: #10b981 !important; background: rgba(16,185,129,0.08) !important; animation: correctPop 0.4s ease; }
+        .quiz-option.wrong { border-color: #f43f5e !important; background: rgba(244,63,94,0.08) !important; animation: shake 0.4s ease; }
+
+        .progress-fill { transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
+
+        .shortcut-key {
+            background: linear-gradient(180deg, #1a1a3a, #12122a);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-bottom-width: 2px;
+            min-width: 28px; padding: 2px 7px; border-radius: 5px;
+            font-family: 'Inter', monospace; font-size: 10px;
+            color: #c4b5fd; display: inline-block; text-align: center;
+        }
+
+        .nav-link { position: relative; }
+        .nav-link::after { content:''; position:absolute; bottom:-2px; right:0; width:0; height:2px; background:linear-gradient(90deg,var(--c1),var(--c2)); transition:width 0.3s; border-radius:1px; }
+        .nav-link.active::after { width:100%; }
+
+        .tab-active { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(139,92,246,0.1)) !important; border-color: rgba(139,92,246,0.4) !important; color: #c4b5fd !important; }
+
+        .score-ring { background: conic-gradient(from 0deg, var(--c1), var(--c2), var(--c3) var(--deg, 0deg), rgba(255,255,255,0.05) 0deg); }
+
+        .mobile-menu { transform:translateX(100%); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-menu.open { transform:translateX(0); }
+
+        .content-tab { display:none; } .content-tab.active { display:block; animation:slideUp 0.4s ease both; }
+        .stab { display:none; } .stab.active { display:block; animation:slideUp 0.3s ease both; }
+
+        .toast { animation: slideUp 0.3s ease both; }
+
+        .bottom-nav { 
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+            background: rgba(6,6,15,0.95); backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        @media(min-width:768px) { .bottom-nav { display:none; } }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--c1), var(--c2));
+            position: relative; overflow: hidden;
+        }
+        .btn-gradient::before {
+            content:''; position:absolute; inset:0;
+            background: linear-gradient(135deg, var(--c2), var(--c3));
+            opacity:0; transition:opacity 0.3s;
+        }
+        .btn-gradient:hover::before { opacity:1; }
+        .btn-gradient > * { position:relative; z-index:1; }
+
+        .level-easy { border-color: rgba(16,185,129,0.3); }
+        .level-easy:hover { border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.06); }
+        .level-medium { border-color: rgba(245,158,11,0.3); }
+        .level-medium:hover { border-color: rgba(245,158,11,0.6); background: rgba(245,158,11,0.06); }
+        .level-hard { border-color: rgba(244,63,94,0.3); }
+        .level-hard:hover { border-color: rgba(244,63,94,0.6); background: rgba(244,63,94,0.06); }
+    </style>
+</head>
+<body class="text-neutral-200 overflow-x-hidden pb-16 md:pb-0">
+
+<!-- Nav -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:rgba(6,6,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between h-14 md:h-16">
+            <a href="#hero" class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center flex-shrink-0">
+                    <iconify-icon icon="solar:monitor-smartphone-bold" class="text-white text-sm"></iconify-icon>
+                </div>
+                <div class="hidden sm:block">
+                    <span class="text-xs font-bold text-neutral-100 tracking-tight">ICDL المستوى الأول</span>
+                    <span class="block text-[9px] text-neutral-600">معهد الرواد</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#hero" class="nav-link active text-xs text-neutral-400 hover:text-neutral-200 transition-colors">الرئيسية</a>
+                <a href="#topics" class="nav-link text-xs text-neutral-400 hover:text-neutral-200 transition-colors">المواضيع</a>
+                <a href="#content" class="nav-link text-xs text-neutral-400 hover:text-neutral-200 transition-colors">المحتوى</a>
+                <a href="#shortcuts" class="nav-link text-xs text-neutral-400 hover:text-neutral-200 transition-colors">الاختصارات</a>
+                <a href="#quizzes" class="nav-link text-xs text-neutral-400 hover:text-neutral-200 transition-colors">الاختبارات</a>
+            </div>
+            <button id="menuBtn" class="md:hidden text-neutral-400 p-1">
+                <iconify-icon icon="solar:hamburger-menu-linear" class="text-xl"></iconify-icon>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] flex flex-col items-center justify-center gap-5" style="background:rgba(6,6,15,0.98);backdrop-filter:blur(24px);">
+    <button id="menuClose" class="absolute top-4 left-4 text-neutral-400 p-1"><iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon></button>
+    <a href="#hero" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">الرئيسية</a>
+    <a href="#topics" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">المواضيع</a>
+    <a href="#content" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">المحتوى</a>
+    <a href="#shortcuts" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">الاختصارات</a>
+    <a href="#quizzes" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">الاختبارات</a>
+    <a href="#about" class="mm-link text-xl text-neutral-200 hover:text-violet-400 transition-colors">عن المنصة</a>
+</div>
+
+<!-- Hero -->
+<section id="hero" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#06060f] pointer-events-none"></div>
+    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+        <div class="anim-clip">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/5 text-violet-400 text-[10px] font-medium tracking-widest uppercase mb-6">
+                <iconify-icon icon="solar:book-2-linear" class="text-xs"></iconify-icon>المستوى الأول
+            </span>
+        </div>
+        <h1 class="anim-clip delay-2 text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight leading-[1] mb-5">
+            <span class="text-neutral-100">الشهادة الدولية</span><br>
+            <span class="shimmer-text">لقيادة الحاسوب</span>
+        </h1>
+        <p class="anim-clip delay-3 text-neutral-500 text-xs sm:text-sm lg:text-base max-w-xl mx-auto mb-3 leading-relaxed">
+            تعلّم أساسيات الحاسوب ويندوز ووورد وباوربوينت وإكسل من خلال منصة تعليمية تفاعلية
+        </p>
+        <p class="anim-clip delay-4 text-neutral-700 text-[10px] sm:text-xs mb-8 tracking-wide">
+            Windows · Word · PowerPoint · Excel
+        </p>
+        <div class="anim-fade-up delay-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="#quizzes" class="btn-gradient w-full sm:w-auto px-7 py-3 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2" style="box-shadow:0 0 30px rgba(139,92,246,0.2);">
+                <span>ابدأ الاختبار</span>
+                <iconify-icon icon="solar:arrow-left-linear" class="transition-transform group-hover:translate-x-[-3px]"></iconify-icon>
+            </a>
+            <a href="#topics" class="w-full sm:w-auto px-7 py-3 border border-neutral-800 hover:border-neutral-600 text-neutral-400 hover:text-neutral-200 text-sm font-medium rounded-xl transition-all">تصفّح المحتوى</a>
+        </div>
+        <div class="anim-fade-up delay-6 mt-12 flex items-center justify-center gap-6 sm:gap-10 text-center">
+            <div><div class="text-xl sm:text-2xl font-bold gradient-text">4</div><div class="text-[9px] text-neutral-600 tracking-wider mt-0.5">محاور</div></div>
+            <div class="w-px h-8 bg-neutral-800/50"></div>
+            <div><div class="text-xl sm:text-2xl font-bold gradient-text-warm">60+</div><div class="text-[9px] text-neutral-600 tracking-wider mt-0.5">سؤال</div></div>
+            <div class="w-px h-8 bg-neutral-800/50"></div>
+            <div><div class="text-xl sm:text-2xl font-bold gradient-text">3</div><div class="text-[9px] text-neutral-600 tracking-wider mt-0.5">مستويات</div></div>
+        </div>
+    </div>
+    <div class="absolute bottom-20 md:bottom-8 left-1/2 -translate-x-1/2 anim-fade delay-6 hidden sm:block">
+        <div class="w-5 h-8 border border-neutral-800 rounded-full flex items-start justify-center p-1"><div class="w-1 h-2 bg-violet-500 rounded-full animate-bounce"></div></div>
+    </div>
+</section>
+
+<!-- Topics -->
+<section id="topics" class="py-16 lg:py-24 relative">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-10 scroll-anim">
+            <span class="text-[9px] text-violet-400 tracking-[0.2em] uppercase font-medium">المحاور الدراسية</span>
+            <h2 class="text-2xl lg:text-3xl font-bold text-neutral-100 mt-3">أربعة محاور أساسية</h2>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div class="topic-card scroll-anim glass glass-hover rounded-2xl p-4 sm:p-5 cursor-pointer" onclick="goTopic('win')">
+                <div class="icon-wrap w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <iconify-icon icon="solar:monitor-bold" class="text-cyan-400 text-xl sm:text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-1">أساسيات الحاسوب</h3>
+                <p class="text-neutral-600 text-[10px] sm:text-xs leading-relaxed hidden sm:block">المكونات، الأنواع، وحدات الإدخال والإخراج</p>
+                <div class="flex items-center gap-1 text-cyan-400 text-[10px] sm:text-xs font-medium mt-2">
+                    <span>تصفّح</span><iconify-icon icon="solar:arrow-left-linear" class="text-xs"></iconify-icon>
+                </div>
+            </div>
+            <div class="topic-card scroll-anim glass glass-hover rounded-2xl p-4 sm:p-5 cursor-pointer" onclick="goTopic('word')">
+                <div class="icon-wrap w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <iconify-icon icon="solar:document-text-bold" class="text-blue-400 text-xl sm:text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-1">مايكروسوفت وورد</h3>
+                <p class="text-neutral-600 text-[10px] sm:text-xs leading-relaxed hidden sm:block">التنسيق، الجداول، الصور، دمج المراسلات</p>
+                <div class="flex items-center gap-1 text-blue-400 text-[10px] sm:text-xs font-medium mt-2">
+                    <span>تصفّح</span><iconify-icon icon="solar:arrow-left-linear" class="text-xs"></iconify-icon>
+                </div>
+            </div>
+            <div class="topic-card scroll-anim glass glass-hover rounded-2xl p-4 sm:p-5 cursor-pointer" onclick="goTopic('ppt')">
+                <div class="icon-wrap w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <iconify-icon icon="solar:presentation-graph-bold" class="text-orange-400 text-xl sm:text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-1">باور بوينت</h3>
+                <p class="text-neutral-600 text-[10px] sm:text-xs leading-relaxed hidden sm:block">الشرائح، الانتقالات، الأنيميشن، العرض</p>
+                <div class="flex items-center gap-1 text-orange-400 text-[10px] sm:text-xs font-medium mt-2">
+                    <span>تصفّح</span><iconify-icon icon="solar:arrow-left-linear" class="text-xs"></iconify-icon>
+                </div>
+            </div>
+            <div class="topic-card scroll-anim glass glass-hover rounded-2xl p-4 sm:p-5 cursor-pointer" onclick="goTopic('excel')">
+                <div class="icon-wrap w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <iconify-icon icon="solar:chart-square-bold" class="text-emerald-400 text-xl sm:text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-1">مايكروسوفت إكسل</h3>
+                <p class="text-neutral-600 text-[10px] sm:text-xs leading-relaxed hidden sm:block">الخلايا، الصيغ، الدوال، الرسوم البيانية</p>
+                <div class="flex items-center gap-1 text-emerald-400 text-[10px] sm:text-xs font-medium mt-2">
+                    <span>تصفّح</span><iconify-icon icon="solar:arrow-left-linear" class="text-xs"></iconify-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content -->
+<section id="content" class="py-16 lg:py-24 relative border-t border-white/[0.03]">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-8 scroll-anim">
+            <span class="text-[9px] text-violet-400 tracking-[0.2em] uppercase font-medium">المحتوى التعليمي</span>
+            <h2 class="text-2xl lg:text-3xl font-bold text-neutral-100 mt-3">دروس تفصيلية</h2>
+        </div>
+        <div class="flex gap-1.5 sm:gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide scroll-anim">
+            <button class="ctab tab-active whitespace-nowrap px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg transition-all" data-ct="win" onclick="switchCTab('win')">أساسيات الحاسوب</button>
+            <button class="ctab whitespace-nowrap px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-ct="word" onclick="switchCTab('word')">وورد</button>
+            <button class="ctab whitespace-nowrap px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-ct="ppt" onclick="switchCTab('ppt')">باور بوينت</button>
+            <button class="ctab whitespace-nowrap px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-ct="excel" onclick="switchCTab('excel')">إكسل</button>
+        </div>
+
+        <!-- Windows -->
+        <div id="ct-win" class="content-tab active space-y-4">
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:info-circle-linear" class="text-cyan-400"></iconify-icon>تعريف الحاسوب</h3>
+                <p class="text-neutral-500 text-xs sm:text-sm leading-relaxed">آلة تكنولوجية رقمية حديثة تُستخدم للوصول للبيانات وتخزينها ومعالجتها بشكل منظم. من استخداماته: الإنترنت، التسوق الإلكتروني، التعلم عن بُعد، البريد الإلكتروني.</p>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:devices-bold" class="text-cyan-400"></iconify-icon>أنواع الحواسيب</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]"><div class="text-cyan-400 text-lg mb-1"><iconify-icon icon="solar:monitor-bold"></iconify-icon></div><h4 class="text-xs font-bold text-neutral-200">مكتبي Desktop</h4><p class="text-[10px] text-neutral-600 mt-0.5">للمهام المكتبية</p></div>
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]"><div class="text-cyan-400 text-lg mb-1"><iconify-icon icon="solar:laptop-bold"></iconify-icon></div><h4 class="text-xs font-bold text-neutral-200">محمول Laptop</h4><p class="text-[10px] text-neutral-600 mt-0.5">سهل النقل والحمل</p></div>
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]"><div class="text-cyan-400 text-lg mb-1"><iconify-icon icon="solar:tablet-bold"></iconify-icon></div><h4 class="text-xs font-bold text-neutral-200">لوحي Tablet</h4><p class="text-[10px] text-neutral-600 mt-0.5">تصفح ومهام بسيطة</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:cpu-bolt-bold" class="text-cyan-400"></iconify-icon>المعدات المؤثرة على الأداء</h3>
+                <div class="space-y-2.5">
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0"><iconify-icon icon="solar:cpu-bolt-bold" class="text-cyan-400 text-sm"></iconify-icon></div>
+                        <div><h4 class="text-xs font-bold text-neutral-200">المعالج CPU</h4><p class="text-[10px] text-neutral-600 mt-0.5">العقل المدبر - يُقاس بالميغا/غيغا هرتز</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0"><iconify-icon icon="solar:hard-drive-bold" class="text-cyan-400 text-sm"></iconify-icon></div>
+                        <div><h4 class="text-xs font-bold text-neutral-200">القرص الصلب</h4><p class="text-[10px] text-neutral-600 mt-0.5">التخزين الرئيسي - كلما زادت سرعته تحسن الأداء</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0"><iconify-icon icon="solar:server-2-bold" class="text-cyan-400 text-sm"></iconify-icon></div>
+                        <div><h4 class="text-xs font-bold text-neutral-200">RAM</h4><p class="text-[10px] text-neutral-600 mt-0.5">تخزين مؤقت قبل المعالجة - تزيد السرعة المتزامنة</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0"><iconify-icon icon="solar:gallery-bold" class="text-cyan-400 text-sm"></iconify-icon></div>
+                        <div><h4 class="text-xs font-bold text-neutral-200">كرت الشاشة GPU</h4><p class="text-[10px] text-neutral-600 mt-0.5">معالجة الرسوميات - مدمج أو منفصل</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:widget-2-bold" class="text-cyan-400"></iconify-icon>مكونات سطح المكتب</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الأيقونات</h4><p class="text-[9px] text-neutral-600 mt-0.5">نظام ويندوز + اختصارات التطبيقات</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">قائمة ابدأ</h4><p class="text-[9px] text-neutral-600 mt-0.5">التحكم بالتطبيقات والإعدادات</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">شريط المهام</h4><p class="text-[9px] text-neutral-600 mt-0.5">أسفل الشاشة - الساعة والإشعارات</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">النوافذ</h4><p class="text-[9px] text-neutral-600 mt-0.5">تصغير/تكبير/إغلاق/سحب</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:shield-check-bold" class="text-cyan-400"></iconify-icon>مدير المهام وجدار الحماية</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed mb-2"><strong class="text-neutral-300">مدير المهام:</strong> يُفتح بـ <span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">Alt</span>+<span class="shortcut-key">Del</span> — أقسامه: العمليات، الأداء، بدء التشغيل، المستخدمون، التفاصيل، الخدمات.</p>
+                <p class="text-neutral-500 text-xs leading-relaxed"><strong class="text-neutral-300">جدار الحماية:</strong> وسيلة دفاعية ضد الفيروسات وأحصنة طروادة، يصفّي حركة المرور على الشبكة.</p>
+            </div>
+        </div>
+
+        <!-- Word -->
+        <div id="ct-word" class="content-tab space-y-4">
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:document-text-bold" class="text-blue-400"></iconify-icon>فتح الوورد</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed">ابدأ ← تشغيل ← اكتب <span class="text-blue-400 font-mono text-[11px]">WinWord</span> ← OK | أو من سطح المكتب | أو ابدأ ← جميع البرامج ← Office ← Word</p>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:home-2-bold" class="text-blue-400"></iconify-icon>تبويب الصفحة الرئيسية</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الحافظة</h4><p class="text-[9px] text-neutral-600">نسخ، قص، لصق، نسخ التنسيق</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الخط</h4><p class="text-[9px] text-neutral-600">النوع، الحجم، غامق، مائل، تسطير</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الفقرات</h4><p class="text-[9px] text-neutral-600">محاذاة، تباعد، تعداد نقطي/رقمي</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الأنماط</h4><p class="text-[9px] text-neutral-600">تطبيق تنسيقات جاهزة</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:add-circle-bold" class="text-blue-400"></iconify-icon>تبويب إدراج</h3>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:gallery-bold" class="text-blue-400 text-xl mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">صور</h4></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:widget-4-bold" class="text-blue-400 text-xl mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">جداول</h4></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:shapes-bold" class="text-blue-400 text-xl mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">SmartArt</h4></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:link-bold" class="text-blue-400"></iconify-icon>دمج المراسلات</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed">إنشاء مستندات متعددة من نموذج واحد باستخدام بيانات Excel: تبويب المراسلات ← بدء دمج المراسلات ← رسائل ← تحديد المستلمين ← إدراج حقل دمج.</p>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:check-read-bold" class="text-blue-400"></iconify-icon>التدقيق الإملائي</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed"><span class="text-red-400">خط أحمر متعرج</span> = خطأ إملائي | <span class="text-blue-400">خط أزرق متعرج</span> = خطأ نحوي | مراجعة ← التدقيق الإملائي والنحوي</p>
+            </div>
+        </div>
+
+        <!-- PowerPoint -->
+        <div id="ct-ppt" class="content-tab space-y-4">
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:presentation-graph-bold" class="text-orange-400"></iconify-icon>تعريف باور بوينت</h3>
+                <p class="text-neutral-500 text-xs sm:text-sm leading-relaxed">برنامج من مايكروسوفت أوفيس يُستخدم لإنشاء عروض تقديمية احترافية تتكون من شرائح (Slides) تحتوي على نصوص وصور ورسومات وأنيميشن ومؤثرات انتقالية.</p>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:layers-bold" class="text-orange-400"></iconify-icon>الواجهة الرئيسية</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">شريط الشرائح</h4><p class="text-[9px] text-neutral-600">على اليسار - عرض مصغر لجميع الشرائح</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">منطقة الشريحة</h4><p class="text-[9px] text-neutral-600">المنطقة الرئيسية لتعديل محتوى الشريحة</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">جزء الملاحظات</h4><p class="text-[9px] text-neutral-600">أسفل الشريحة - ملاحظات للمقدم</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الشريط (Ribbon)</h4><p class="text-[9px] text-neutral-600">أعلى الشاشة - التبويبات والأوامر</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:add-square-bold" class="text-orange-400"></iconify-icon">إنشاء شريحة جديدة</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed mb-2">من تبويب <strong class="text-neutral-300">الصفحة الرئيسية</strong> ← شريحة جديدة، أو اختيار تخطيط من معرض التخطيطات:</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">عنوان</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">عنوان ومحتوى</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">قسم</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">فارغ</span>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:play-circle-bold" class="text-orange-400"></iconify-icon>الانتقالات والأنيميشن</h3>
+                <div class="space-y-2">
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <h4 class="text-xs font-bold text-neutral-300 mb-1">انتقالات الشرائح (Transitions)</h4>
+                        <p class="text-[10px] text-neutral-600">تبويب انتقالات ← اختيار تأثير ← تحديد سرعة ومدة الانتقال ← تطبيق على الكل</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <h4 class="text-xs font-bold text-neutral-300 mb-1">حركات الكائنات (Animations)</h4>
+                        <p class="text-[10px] text-neutral-600">تبويب حركات ← تحديد الكائن ← اختيار الحركة (دخول/تأكيد/خروج) ← تحديد الترتيب بـ جزء الحركات</p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:gallery-minimalistic-bold" class="text-orange-400"></iconify-icon>إدراج الوسائط</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:gallery-bold" class="text-orange-400 text-lg mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">صور</h4><p class="text-[9px] text-neutral-600">من ملف أو أونلاين</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:video-frame-play-horizontal-bold" class="text-orange-400 text-lg mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">فيديو</h4><p class="text-[9px] text-neutral-600">ملف أو يوتيوب</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:music-note-2-bold" class="text-orange-400 text-lg mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">صوت</h4><p class="text-[9px] text-neutral-600">خلفية صوتية</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"><iconify-icon icon="solar:shapes-bold" class="text-orange-400 text-lg mb-1"></iconify-icon><h4 class="text-[10px] font-bold text-neutral-300">أشكال و SmartArt</h4><p class="text-[9px] text-neutral-600">رسومات توضيحية</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:monitor-bold" class="text-orange-400"></iconify-icon>تشغيل العرض التقديمي</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed"><span class="shortcut-key">F5</span> من البداية | <span class="shortcut-key">Shift</span>+<span class="shortcut-key">F5</span> من الشريحة الحالية | تبويب عرض تقديمي ← من البداية</p>
+            </div>
+        </div>
+
+        <!-- Excel -->
+        <div id="ct-excel" class="content-tab space-y-4">
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-2 flex items-center gap-2"><iconify-icon icon="solar:chart-square-bold" class="text-emerald-400"></iconify-icon>تعريف إكسل</h3>
+                <p class="text-neutral-500 text-xs sm:text-sm leading-relaxed">برنامج جداول بيانات من مايكروسوفت أوفيس يُستخدم لتنظيم البيانات وحسابها وتحليلها وتمثيلها برسوم بيانية. يتكون من صفوف (Rows) وأعمدة (Columns) تتقاطع في خلايا (Cells).</p>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:widget-5-bold" class="text-emerald-400"></iconify-icon>الواجهة الرئيسية</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">الخلايا</h4><p class="text-[9px] text-neutral-600">تُعرف بـ A1, B2 مثلاً (عمود + صف)</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">ورقة العمل</h4><p class="text-[9px] text-neutral-600">Sheet1, Sheet2... أسفل الشاشة</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">شريط الصيغة</h4><p class="text-[9px] text-neutral-600">يعرض محتوى الخلية النشطة</p></div>
+                    <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]"><h4 class="text-[11px] font-bold text-neutral-300">مربع الاسم</h4><p class="text-[9px] text-neutral-600">أعلى العمود A - يعرض مرجع الخلية</p></div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:calculator-bold" class="text-emerald-400"></iconify-icon>الصيغ والدوال الأساسية</h3>
+                <p class="text-neutral-500 text-xs mb-3">تبدأ الصيغ دائمًا بعلامة <span class="text-emerald-400 font-mono">=</span></p>
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">المجموع</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=SUM(A1:A10)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">المتوسط</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=AVERAGE(A1:A10)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">العدد</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=COUNT(A1:A10)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">الحد الأقصى</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=MAX(A1:A10)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">الحد الأدنى</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=MIN(A1:A10)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-[10px] text-neutral-400">إذا (شرطية)</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">=IF(A1>10,"نعم","لا")</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:chart-2-bold" class="text-emerald-400"></iconify-icon>الرسوم البيانية</h3>
+                <p class="text-neutral-500 text-xs leading-relaxed mb-2">تحديد البيانات ← تبويب إدراج ← اختيار نوع الرسم البياني:</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">عمودي</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">خطي</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">دائري</span>
+                    <span class="text-[9px] text-neutral-500 bg-white/[0.02] px-2 py-1.5 rounded-lg text-center border border-white/[0.03]">شريطي</span>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-4 sm:p-5">
+                <h3 class="text-sm sm:text-base font-bold text-neutral-100 mb-3 flex items-center gap-2"><iconify-icon icon="solar:filter-bold" class="text-emerald-400"></iconify-icon>التنسيق الشرطي والفرز</h3>
+                <div class="space-y-2">
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <h4 class="text-xs font-bold text-neutral-300 mb-1">التنسيق الشرطي</h4>
+                        <p class="text-[10px] text-neutral-600">تبويب الصفحة الرئيسية ← تنسيق شرطي ← قواعد تمييز الخلايا ← اختيار الشرط واللون</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                        <h4 class="text-xs font-bold text-neutral-300 mb-1">الفرز والتصفية</h4>
+                        <p class="text-[10px] text-neutral-600">تبويب البيانات ← فرز (تصاعدي/تنازلي) ← تصفية (عرض بيانات محددة)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shortcuts -->
+<section id="shortcuts" class="py-16 lg:py-24 relative border-t border-white/[0.03]">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-8 scroll-anim">
+            <span class="text-[9px] text-violet-400 tracking-[0.2em] uppercase font-medium">مرجع سريع</span>
+            <h2 class="text-2xl lg:text-3xl font-bold text-neutral-100 mt-3">اختصارات لوحة المفاتيح</h2>
+        </div>
+        <div class="flex gap-1.5 mb-6 overflow-x-auto pb-2 scrollbar-hide scroll-anim">
+            <button class="stab-btn tab-active whitespace-nowrap px-3 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg transition-all" data-st="ctrl" onclick="switchSTab('ctrl')">Ctrl</button>
+            <button class="stab-btn whitespace-nowrap px-3 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-st="win" onclick="switchSTab('win')">Windows</button>
+            <button class="stab-btn whitespace-nowrap px-3 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-st="alt" onclick="switchSTab('alt')">Alt</button>
+            <button class="stab-btn whitespace-nowrap px-3 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-st="office" onclick="switchSTab('office')">أوفيس</button>
+            <button class="stab-btn whitespace-nowrap px-3 py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.06] rounded-lg text-neutral-600 transition-all" data-st="func" onclick="switchSTab('func')">مفاتيح F</button>
+        </div>
+
+        <div id="st-ctrl" class="stab active scroll-anim">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">نسخ</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">C</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">قص</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">X</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">لصق</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">V</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تحديد الكل</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">A</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تراجع</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Z</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">حفظ</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">S</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">طباعة</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">P</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">بحث</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">F</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">مجلد جديد</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Shift</span><span class="shortcut-key">N</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">مدير المهام</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Shift</span><span class="shortcut-key">Esc</span></div></div>
+            </div>
+        </div>
+        <div id="st-win" class="stab scroll-anim">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">قائمة ابدأ</span><span class="shortcut-key">⊞</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">سطح المكتب</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">D</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">بحث</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">Q</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">مستكشف الملفات</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">E</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">أمر تشغيل</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">R</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">إعدادات</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">I</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تأمين</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">L</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">لقطة شاشة</span><div class="flex gap-0.5"><span class="shortcut-key">⊞</span><span class="shortcut-key">Shift</span><span class="shortcut-key">S</span></div></div>
+            </div>
+        </div>
+        <div id="st-alt" class="stab scroll-anim">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تغيير لغة</span><div class="flex gap-0.5"><span class="shortcut-key">Alt</span><span class="shortcut-key">Shift</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">التنقل بين البرامج</span><div class="flex gap-0.5"><span class="shortcut-key">Alt</span><span class="shortcut-key">Tab</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">إغلاق النافذة</span><div class="flex gap-0.5"><span class="shortcut-key">Alt</span><span class="shortcut-key">F4</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">خصائص</span><div class="flex gap-0.5"><span class="shortcut-key">Alt</span><span class="shortcut-key">Enter</span></div></div>
+            </div>
+        </div>
+        <div id="st-office" class="stab scroll-anim">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">غامق</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">B</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">مائل</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">I</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تسطير</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">U</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">توسيط</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">E</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">حفظ باسم</span><span class="shortcut-key">F12</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">صفحة جديدة (وورد)</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Enter</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">معادلة (وورد)</span><div class="flex gap-0.5"><span class="shortcut-key">Alt</span><span class="shortcut-key">=</span></div></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">حاشية سفلية</span><div class="flex gap-0.5"><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Alt</span><span class="shortcut-key">F</span></div></div>
+            </div>
+        </div>
+        <div id="st-func" class="stab scroll-anim">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تعليمات</span><span class="shortcut-key">F1</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">إعادة تسمية</span><span class="shortcut-key">F2</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تكرار آخر عملية</span><span class="shortcut-key">F4</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تحديث</span><span class="shortcut-key">F5</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">تدقيق إملائي</span><span class="shortcut-key">F7</span></div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]"><span class="text-neutral-500 text-[11px]">عرض تقديمي (PPT)</span><span class="shortcut-key">F5</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quiz Section -->
+<section id="quizzes" class="py-16 lg:py-24 relative border-t border-white/[0.03] grid-bg">
+    <div class="orb orb-1"></div><div class="orb orb-2"></div>
+    <div class="relative z-10 max-w-2xl mx-auto px-4">
+        <div class="text-center mb-8 scroll-anim">
+            <span class="text-[9px] text-violet-400 tracking-[0.2em] uppercase font-medium">اختبر معلوماتك</span>
+            <h2 class="text-2xl lg:text-3xl font-bold text-neutral-100 mt-3">نظام الاختبارات التفاعلي</h2>
+            <p class="text-neutral-600 text-xs mt-2">اختر مستوى الصعوبة وابدأ الاختبار</p>
+        </div>
+
+        <!-- Level Select -->
+        <div id="lvlSelect" class="scroll-anim">
+            <div class="grid grid-cols-3 gap-2.5 mb-6">
+                <button onclick="startQuiz('easy')" class="level-easy glass rounded-2xl p-4 sm:p-5 text-center transition-all">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
+                        <iconify-icon icon="solar:emoji-funny-circle-linear" class="text-emerald-400 text-2xl sm:text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-bold text-emerald-400 mb-0.5">سهل</h3>
+                    <p class="text-neutral-600 text-[9px] sm:text-[10px]">20 سؤال</p>
+                </button>
+                <button onclick="startQuiz('medium')" class="level-medium glass rounded-2xl p-4 sm:p-5 text-center transition-all">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-3">
+                        <iconify-icon icon="solar:emoji-funny-square-linear" class="text-amber-400 text-2xl sm:text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-bold text-amber-400 mb-0.5">متوسط</h3>
+                    <p class="text-neutral-600 text-[9px] sm:text-[10px]">20 سؤال</p>
+                </button>
+                <button onclick="startQuiz('hard')" class="level-hard glass rounded-2xl p-4 sm:p-5 text-center transition-all">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-rose-500/10 flex items-center justify-center mx-auto mb-3">
+                        <iconify-icon icon="solar:fire-bold" class="text-rose-400 text-2xl sm:text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-bold text-rose-400 mb-0.5">صعب</h3>
+                    <p class="text-neutral-600 text-[9px] sm:text-[10px]">20 سؤال</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Area -->
+        <div id="quizArea" class="hidden">
+            <div class="flex items-center justify-between mb-4">
+                <button onclick="backToLevels()" class="flex items-center gap-1.5 text-neutral-600 hover:text-neutral-300 transition-colors text-xs"><iconify-icon icon="solar:arrow-right-linear"></iconify-icon>رجوع</button>
+                <span id="lvlBadge" class="px-2.5 py-1 rounded-full text-[10px] font-medium"></span>
+                <span class="text-neutral-600 text-[10px] font-mono flex items-center gap-1"><iconify-icon icon="solar:clock-circle-linear" class="text-xs"></iconify-icon><span id="timer">00:00</span></span>
+            </div>
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span id="qCounter" class="text-[10px] text-neutral-600"></span>
+                    <span id="scDisplay" class="text-[10px] text-violet-400 font-medium"></span>
+                </div>
+                <div class="w-full h-1 bg-white/[0.04] rounded-full overflow-hidden"><div id="progBar" class="progress-fill h-full rounded-full bg-gradient-to-l from-violet-500 to-cyan-400" style="width:0%"></div></div>
+            </div>
+            <div id="qContainer" class="mb-6">
+                <div class="glass rounded-2xl p-4 sm:p-5 mb-4"><p id="qText" class="text-neutral-200 text-sm sm:text-base leading-relaxed font-medium"></p></div>
+                <div id="optsContainer" class="space-y-2.5"></div>
+            </div>
+            <div id="nextWrap" class="hidden">
+                <button onclick="nextQ()" id="nextBtn" class="btn-gradient w-full py-3 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2">
+                    <span>السؤال التالي</span><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden text-center">
+            <div class="mb-6">
+                <div id="resIcon" class="text-5xl sm:text-6xl mb-3"></div>
+                <h3 id="resTitle" class="text-xl sm:text-2xl font-bold text-neutral-100 mb-1"></h3>
+                <p id="resSub" class="text-neutral-600 text-xs"></p>
+            </div>
+            <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-6 relative">
+                <div class="score-ring w-full h-full rounded-full flex items-center justify-center" id="scoreRing" style="--deg:0deg;">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center flex-col" style="background:var(--bg);">
+                        <span id="scorePct" class="text-2xl sm:text-3xl font-bold gradient-text">0%</span>
+                        <span class="text-[9px] text-neutral-600">النتيجة</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2.5 mb-6 max-w-xs mx-auto">
+                <div class="glass rounded-xl p-2.5"><div id="cCount" class="text-lg font-bold text-emerald-400">0</div><div class="text-[9px] text-neutral-600">صحيح</div></div>
+                <div class="glass rounded-xl p-2.5"><div id="wCount" class="text-lg font-bold text-rose-400">0</div><div class="text-[9px] text-neutral-600">خطأ</div></div>
+                <div class="glass rounded-xl p-2.5"><div id="tTime" class="text-lg font-bold text-violet-400">0s</div><div class="text-[9px] text-neutral-600">الوقت</div></div>
+            </div>
+            <button id="revBtn" onclick="toggleRev()" class="mb-5 px-5 py-2 border border-white/[0.08] hover:border-white/[0.15] text-neutral-400 text-xs rounded-xl transition-all">مراجعة الإجابات</button>
+            <div id="revBox" class="hidden text-right mb-6 space-y-2.5"></div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                <button onclick="restartLvl()" class="btn-gradient px-6 py-2.5 text-white text-xs font-semibold rounded-xl"><span>إعادة الاختبار</span></button>
+                <button onclick="backToLevels()" class="px-6 py-2.5 border border-white/[0.08] hover:border-white/[0.15] text-neutral-400 text-xs rounded-xl transition-all">تغيير المستوى</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-16 lg:py-24 relative border-t border-white/[0.03]">
+    <div class="max-w-3xl mx-auto px-4 text-center scroll-anim">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 via-violet-500 to-rose-500 flex items-center justify-center mx-auto mb-5" style="animation:glow 3s ease-in-out infinite;">
+            <iconify-icon icon="solar:code-bold" class="text-white text-2xl"></iconify-icon>
+        </div>
+        <h2 class="text-2xl lg:text-3xl font-bold text-neutral-100 mb-3">عن المنصة</h2>
+        <p class="text-neutral-500 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto mb-6">منصة تعليمية تفاعلية مبنية على كتاب ICDL المستوى الأول الصادر عن معهد الرواد للعلوم الإدارية والتقنية.</p>
+        <div class="inline-flex items-center gap-3 glass rounded-2xl p-4 sm:p-5">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="solar:user-bold" class="text-violet-400 text-lg"></iconify-icon>
+            </div>
+            <div class="text-right">
+                <h3 class="text-sm font-bold text-neutral-100">م. محمد شعبان ريمه</h3>
+                <p class="text-[10px] text-violet-400">مبرمج المنصة</p>
+            </div>
+        </div>
+        <p class="mt-5 text-neutral-700 text-[10px] flex items-center justify-center gap-1.5"><iconify-icon icon="solar:buildings-2-linear" class="text-xs"></iconify-icon>معهد الرواد للعلوم الإدارية والتقنية</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 border-t border-white/[0.03]">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <span class="text-neutral-700 text-[10px]">© 2025 منصة الرواد التعليمية - ICDL المستوى الأول</span>
+        <span class="text-neutral-700 text-[10px]">تطوير: م. محمد شعبان ريمه</span>
+    </div>
+</footer>
+
+<!-- Bottom Nav (Mobile) -->
+<div class="bottom-nav md:hidden">
+    <div class="flex items-center justify-around py-2">
+        <a href="#hero" class="bnav flex flex-col items-center gap-0.5 text-neutral-600 hover:text-violet-400 transition-colors px-3 py-1">
+            <iconify-icon icon="solar:home-2-linear" class="text-lg"></iconify-icon><span class="text-[8px]">الرئيسية</span>
+        </a>
+        <a href="#content" class="bnav flex flex-col items-center gap-0.5 text-neutral-600 hover:text-violet-400 transition-colors px-3 py-1">
+            <iconify-icon icon="solar:book-2-linear" class="text-lg"></iconify-icon><span class="text-[8px]">المحتوى</span>
+        </a>
+        <a href="#quizzes" class="bnav flex flex-col items-center gap-0.5 text-neutral-600 hover:text-violet-400 transition-colors px-3 py-1 relative">
+            <div class="w-10 h-10 -mt-5 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                <iconify-icon icon="solar:pen-new-round-bold" class="text-white text-lg"></iconify-icon>
+            </div>
+            <span class="text-[8px] -mt-0.5">اختبار</span>
+        </a>
+        <a href="#shortcuts" class="bnav flex flex-col items-center gap-0.5 text-neutral-600 hover:text-violet-400 transition-colors px-3 py-1">
+            <iconify-icon icon="solar:keyboard-linear" class="text-lg"></iconify-icon><span class="text-[8px]">اختصارات</span>
+        </a>
+        <a href="#about" class="bnav flex flex-col items-center gap-0.5 text-neutral-600 hover:text-violet-400 transition-colors px-3 py-1">
+            <iconify-icon icon="solar:info-circle-linear" class="text-lg"></iconify-icon><span class="text-[8px]">عن</span>
+        </a>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toasts" class="fixed bottom-20 md:bottom-6 left-4 z-50 space-y-2"></div>
+
+<script>
+// ===== QUIZ DATA (60 questions, 20 per level) =====
+const Q = {
+easy: [
+    {q:"ما هو تعريف الحاسوب؟",o:["آلة ميكانيكية قديمة","آلة رقمية لتخزين ومعالجة البيانات","جهاز تسخين كهربائي","نظام اتصالات لاسلكي فقط"],c:1},
+    {q:"أي من التالي وحدة إدخال؟",o:["الشاشة","الطابعة","الماوس","السماعات"],c:2},
+    {q:"اختصار النسخ هو؟",o:["Ctrl+V","Ctrl+X","Ctrl+C","Ctrl+Z"],c:2},
+    {q:"أين يوجد شريط المهام؟",o:["أعلى الشاشة","الجانب الأيمن","أسفل سطح المكتب","منتصف الشاشة"],c:2},
+    {q:"امتداد الصور النقطية؟",o:[".docx",".mp3",".jpg",".xlsx"],c:2},
+    {q:"اختصار قائمة ابدأ؟",o:["Alt+Tab","Ctrl+Esc","Alt+F4","Shift+Delete"],c:1},
+    {q:"أي من التالي وحدة إخراج؟",o:["الكيبورد","الماوس","كاميرا الويب","الطابعة"],c:3},
+    {q:"ما وظيفة Delete العادي؟",o:["حذف نهائي","حذف إلى سلة المهملات","نسخ الملف","نقل الملف"],c:1},
+    {q:"برنامج معالجة النصوص من مايكروسوفت؟",o:["Excel","PowerPoint","Word","Access"],c:2},
+    {q:"كيف نفتح الوورد من Run؟",o:["Word","WinWord","Office","Doc"],c:1},
+    {q:"ما نوع الملف الناتج من إكسل؟",o:[".docx",".pptx",".xlsx",".mp3"],c:2},
+    {q:"برنامج العروض التقديمية هو؟",o:["Word","Excel","Access","PowerPoint"],c:3},
+    {q:"ما هي لغة الصيغ في إكسل؟",o:["تبدأ بـ #","تبدأ بـ @","تبدأ بـ =","تبدأ بـ !"],c:2},
+    {q:"اختصار لصق هو؟",o:["Ctrl+C","Ctrl+X","Ctrl+V","Ctrl+Z"],c:2},
+    {q:"أي من التالي حاسوب محمول؟",o:["Desktop","Laptop","Tablet فقط","Server"],c:1},
+    {q:"وحدة المعالجة تُسمى؟",o:["RAM","GPU","CPU","HDD"],c:2},
+    {q:"اختصار حفظ الملف؟",o:["Ctrl+P","Ctrl+S","Ctrl+C","Ctrl+Z"],c:1},
+    {q:"برنامج إكسل يُستخدم لـ؟",o:["معالجة النصوص","العروض التقديمية","جداول البيانات","تصفح الإنترنت"],c:2},
+    {q:"شريحة جديدة في باوربوينت من؟",o:["تبويب إدراج","تبويب الصفحة الرئيسية","تبويب تصميم","تبويب عرض"],c:1},
+    {q:"الشريحة الفارغة لا تحتوي على؟",o:["عنوان","محتوى","أي شيء مُعد مسبقاً","خلفية"],c:2}
+],
+medium: [
+    {q:"وحدة قياس سرعة المعالج؟",o:["بيت/ثانية","ميغا أو غيغا هرتز","بكسل","جيجا بايت"],c:1},
+    {q:"اختصار إنشاء مجلد جديد؟",o:["Ctrl+N","Ctrl+Shift+N","Alt+N","Ctrl+Alt+N"],c:1},
+    {q:"الوصول للوحة التحكم في ويندوز 10؟",o:["ابدأ←برامج","ابدأ←بحث←control","النقر المزدوج على الشاشة","Ctrl+P"],c:1},
+    {q:"الفرق بين النسخ والقص؟",o:["لا فرق","النسخ ينقل والقص يبقي الأصل","النسخ يبقي الأصل والقص ينقل","النسخ أسرع فقط"],c:2},
+    {q:"معرفة حجم الهارد؟",o:["Win+R←cmd","Win+X←إدارة الأقراص","Ctrl+Alt+Delete","F2"],c:1},
+    {q:"اختصار إغلاق النافذة؟",o:["Ctrl+W","Alt+F4","Shift+F4","Ctrl+F4"],c:1},
+    {q:"وظيفة RAM؟",o:["تخزين دائم","تخزين مؤقت قبل المعالجة","معالجة الرسوميات","تشغيل الطابعة"],c:1},
+    {q:"تغيير خلفية سطح المكتب من؟",o:["مدير المهام","سلة المهملات","النقر الأيمن←تخصيص أو الإعدادات","CMD"],c:2},
+    {q:"اختصار لقطة الشاشة الدقيقة؟",o:["Print Screen","Win+W","Win+Shift+S","F12"],c:2},
+    {q:"نوع برمجيات نظام التشغيل؟",o:["تطبيقات","نظام","ألعاب","تصميم"],c:1},
+    {q:"دالة المجموع في إكسل؟",o:["=AVG()","=SUM()","=COUNT()","=TOTAL()"],c:1},
+    {q:"تشغيل عرض باوربوينت من البداية؟",o:["Enter","F5","Esc","Space"],c:1},
+    {q:"إدراج انتقالات في باوربوينت من؟",o:["تبويب إدراج","تبويب انتقالات","تبويب حركات","تبويب تصميم"],c:1},
+    {q:"دالة المتوسط في إكسل؟",o:["=SUM()","=MEDIAN()","=AVERAGE()","=MEAN()"],c:2},
+    {q:"حركات الكائنات في باوربوينت من؟",o:["تبويب إدراج","تبويب انتقالات","تبويب حركات","تبويب عرض"],c:2},
+    {q:"مرجع الخلية في إكسل يتكون من؟",o:["صف فقط","عمود فقط","عمود + صف","حرف عشوائي"],c:2},
+    {q:"التنسيق الشرطي في إكسل من؟",o:["تبويب إدراج","تبويب بيانات","تبويب الصفحة الرئيسية","تبويب مراجعة"],c:2},
+    {q:"إدراج رسم بياني في إكسل من؟",o:["تبويب تصميم","تبويب بيانات","تبويب إدراج","تبويب الصفحة الرئيسية"],c:2},
+    {q:"الفرز والتصفية في إكسل من؟",o:["تبويب إدراج","تبويب بيانات","تبويب الصفحة الرئيسية","تبويب مراجعة"],c:1},
+    {q:"شريط الصيغة في إكسل يعرض؟",o:["اسم الملف","محتوى الخلية النشطة","قائمة الدوال","اسم الورقة"],c:1}
+],
+hard: [
+    {q:"الأمر في Run لمعرفة تفاصيل BIOS والمعالج؟",o:["msconfig","dxdiag","cmd","regedit"],c:1},
+    {q:"اختصار إدراج معادلة في وورد؟",o:["Ctrl+M","Alt+=","Ctrl+Shift+M","F8"],c:1},
+    {q:"أول خطوة في دمج المراسلات؟",o:["تحديد المستلمين","إدراج حقل دمج","بدء دمج المراسلات←رسائل","معاينة النتائج"],c:2},
+    {q:"اختصار مسح التنسيق في وورد؟",o:["Ctrl+M","Ctrl+Space","Ctrl+Shift+Space","Alt+Space"],c:1},
+    {q:"حذف جدول كاملاً في وورد؟",o:["Delete فقط","Backspace فقط","تحديد الجدول ثم Delete/Backspace","Ctrl+D"],c:2},
+    {q:"اختصار حاشية سفلية في وورد؟",o:["Ctrl+Alt+F","Ctrl+Alt+D","Ctrl+F","Alt+F"],c:0},
+    {q:"إخفاء حدود جدول في وورد؟",o:["Ctrl+Alt+T","Ctrl+Alt+U","Ctrl+Shift+U","Alt+U"],c:1},
+    {q:"إضافة فرع مستوى ثاني في SmartArt؟",o:["Enter","Tab","Shift+Tab","Space"],c:1},
+    {q:"نقل فقرة لأعلى/أسفل في وورد؟",o:["Alt+↑↓","Alt+Shift+↑↓","Ctrl+↑↓","Shift+↑↓"],c:1},
+    {q:"دالة IF في إكسل تُستخدم لـ؟",o:["الجمع","الشرط","العد","البحث"],c:1},
+    {q:"دالة COUNT في إكسل تحسب؟",o:["المجموع","المتوسط","عدد الخلايا الرقمية","الحد الأقصى"],c:2},
+    {q:"Shift+F5 في باوربوينت يفعل؟",o:["حفظ","تشغيل من البداية","تشغيل من الشريحة الحالية","إغلاق"],c:2},
+    {q:"جزء الحركات في باوربوينت يُستخدم لـ؟",o:["إضافة شريحة","تحديد ترتيب الحركات","تغيير الخط","إدراج صورة"],c:1},
+    {q:"اختصار تعليق ختامي في وورد؟",o:["Ctrl+Alt+F","Ctrl+Alt+D","Ctrl+Alt+E","Ctrl+Alt+End"],c:1},
+    {q:"رسم جدول في وورد بالاختصار؟",o:["---+Enter","+++ +Enter","===+Enter","**+Enter"],c:1},
+    {q:"نص عشوائي في وورد؟",o:["=rand()","=text()","=auto()","=demo()"],c:0},
+    {q:"تغيير ترتيب الشرائح في باوربوينت؟",o:["النقر المزدوج","السحب والإفلات في شريط الشرائح","Ctrl+拖拽","Alt+拖拽"],c:1},
+    {q:"دالة MAX في إكسل تعطي؟",o:["المجموع","المتوسط","الحد الأقصى","العدد"],c:2},
+    {q:"اختصار إدراج تعليق ختامي؟",o:["Ctrl+Alt+F","Ctrl+Alt+D","Ctrl+Alt+End","Ctrl+Alt+C"],c:1},
+    {q:"كتابة ثلاثة نجوم ثم Enter في وورد ينتج؟",o:["جدول","تسطير مزدوج","خط فاصل","قائمة نقطية"],c:2}
+]
+};
+
+let lvl='easy',qi=0,sc=0,ans=[],tmr=null,sec=0,locked=false;
+
+// Mobile menu
+document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileMenu').classList.add('open');
+document.getElementById('menuClose').onclick=()=>document.getElementById('mobileMenu').classList.remove('open');
+document.querySelectorAll('.mm-link').forEach(l=>l.onclick=()=>document.getElementById('mobileMenu').classList.remove('open'));
+
+// Scroll anim
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('anim-fade-up');obs.unobserve(x.target)}})},{threshold:0.08});
+document.querySelectorAll('.scroll-anim').forEach(el=>obs.observe(el));
+
+// Nav active
+const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-link');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-80)c=s.id});nls.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+c)l.classList.add('active')})});
+
+// Content tabs
+function switchCTab(t){document.querySelectorAll('.content-tab').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.ctab').forEach(b=>{b.classList.remove('tab-active');b.classList.add('text-neutral-600')});const el=document.getElementById('ct-'+t);if(el)el.classList.add('active');const btn=document.querySelector(`.ctab[data-ct="${t}"]`);if(btn){btn.classList.add('tab-active');btn.classList.remove('text-neutral-600')}}
+function switchSTab(t){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.stab-btn').forEach(b=>{b.classList.remove('tab-active');b.classList.add('text-neutral-600')});const el=document.getElementById('st-'+t);if(el)el.classList.add('active');const btn=document.querySelector(`.stab-btn[data-st="${t}"]`);if(btn){btn.classList.add('tab-active');btn.classList.remove('text-neutral-600')}}
+function goTopic(t){if(t==='win'||t==='word'||t==='ppt'||t==='excel'){document.getElementById('content').scrollIntoView({behavior:'smooth'});setTimeout(()=>switchCTab(t),400)}}
+
+// Quiz
+function startQuiz(l){
+    lvl=l;qi=0;sc=0;ans=[];sec=0;locked=false;
+    document.getElementById('lvlSelect').classList.add('hidden');
+    document.getElementById('quizArea').classList.remove('hidden');
+    document.getElementById('results').classList.add('hidden');
+    const b=document.getElementById('lvlBadge');
+    const cl={easy:'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',medium:'bg-amber-500/10 text-amber-400 border border-amber-500/20',hard:'bg-rose-500/10 text-rose-400 border border-rose-500/20'};
+    const lb={easy:'سهل',medium:'متوسط',hard:'صعب'};
+    b.className='px-2.5 py-1 rounded-full text-[10px] font-medium '+cl[l];b.textContent=lb[l];
+    clearInterval(tmr);sec=0;
+    tmr=setInterval(()=>{sec++;const m=String(Math.floor(sec/60)).padStart(2,'0'),s=String(sec%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s},1000);
+    showQ();
+}
+function showQ(){
+    locked=false;
+    const qs=Q[lvl],q=qs[qi];
+    document.getElementById('qCounter').textContent=`${qi+1} / ${qs.length}`;
+    document.getElementById('scDisplay').textContent=`${sc} / ${qs.length}`;
+    document.getElementById('progBar').style.width=(qi/qs.length*100)+'%';
+    document.getElementById('qText').textContent=q.q;
+    document.getElementById('nextWrap').classList.add('hidden');
+    const c=document.getElementById('optsContainer');c.innerHTML='';
+    q.o.forEach((opt,i)=>{
+        const b=document.createElement('button');
+        b.className='quiz-option w-full p-3 sm:p-4 rounded-xl glass text-right flex items-center gap-3';
+        b.innerHTML=`<span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border border-white/[0.08] flex items-center justify-center text-[10px] sm:text-xs font-medium text-neutral-500 flex-shrink-0">${'أ ب ج د'.split(' ')[i]}</span><span class="text-xs sm:text-sm text-neutral-300">${opt}</span>`;
+        b.onclick=()=>pick(i,b);
+        c.appendChild(b);
+    });
+}
+function pick(i,btn){
+    if(locked)return;locked=true;
+    const qs=Q[lvl],cor=qs[qi].c,ok=i===cor;
+    ans.push({q:qi,s:i,c:cor,ok});
+    if(ok){sc++;btn.classList.add('correct');toast('إجابة صحيحة ✓','ok')}
+    else{btn.classList.add('wrong');document.querySelectorAll('.quiz-option')[cor].classList.add('correct');toast('إجابة خاطئة ✗','no')}
+    document.getElementById('scDisplay').textContent=`${sc} / ${qs.length}`;
+    document.getElementById('nextWrap').classList.remove('hidden');
+    const nb=document.getElementById('nextBtn');
+    if(qi===qs.length-1)nb.innerHTML='<span>عرض النتائج</span><iconify-icon icon="solar:chart-2-linear"></iconify-icon>';
+    else nb.innerHTML='<span>السؤال التالي</span><iconify-icon icon="solar:arrow-left-linear"></iconify-icon>';
+}
+function nextQ(){qi++;if(qi>=Q[lvl].length)showRes();else showQ()}
+function showRes(){
+    clearInterval(tmr);
+    document.getElementById('quizArea').classList.add('hidden');
+    document.getElementById('results').classList.remove('hidden');
+    const qs=Q[lvl],pct=Math.round(sc/qs.length*100),deg=pct/100*360;
+    document.getElementById('scorePct').textContent=pct+'%';
+    document.getElementById('cCount').textContent=sc;
+    document.getElementById('wCount').textContent=qs.length-sc;
+    document.getElementById('tTime').textContent=sec+'s';
+    setTimeout(()=>document.getElementById('scoreRing').style.setProperty('--deg',deg+'deg'),100);
+    const ic=document.getElementById('resIcon'),ti=document.getElementById('resTitle'),su=document.getElementById('resSub');
+    if(pct>=80){ic.innerHTML='<iconify-icon icon="solar:cup-star-bold" class="text-amber-400"></iconify-icon>';ti.textContent='ممتاز!';su.textContent='أداء رائع، استمر في التفوق!'}
+    else if(pct>=60){ic.innerHTML='<iconify-icon icon="solar:emoji-funny-circle-linear" class="text-emerald-400"></iconify-icon>';ti.textContent='جيد جدًا';su.textContent='أداء جيد، حاول للتحسن أكثر'}
+    else if(pct>=40){ic.innerHTML='<iconify-icon icon="solar:emoji-funny-square-linear" class="text-amber-400"></iconify-icon>';ti.textContent='مقبول';su.textContent='راجع بعض المواضيع وحاول مجددًا'}
+    else{ic.innerHTML='<iconify-icon icon="solar:sad-circle-linear" class="text-rose-400"></iconify-icon>';ti.textContent='تحتاج مراجعة';su.textContent='راجع المحتوى ثم حاول مجددًا'}
+    document.getElementById('revBox').classList.add('hidden');document.getElementById('revBox').innerHTML='';
+}
+function toggleRev(){
+    const box=document.getElementById('revBox'),btn=document.getElementById('revBtn');
+    if(!box.classList.contains('hidden')){box.classList.add('hidden');btn.textContent='مراجعة الإجابات';return}
+    box.classList.remove('hidden');btn.textContent='إخفاء المراجعة';
+    if(!box.innerHTML){const qs=Q[lvl];ans.forEach(a=>{const q=qs[a.q],d=document.createElement('div');d.className='p-3 rounded-xl border '+(a.ok?'border-emerald-500/20 bg-emerald-500/5':'border-rose-500/20 bg-rose-500/5');d.innerHTML=`<div class="flex items-start gap-2 mb-1.5"><span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${a.ok?'bg-emerald-500/20 text-emerald-400':'bg-rose-500/20 text-rose-400'}">${a.ok?'✓':'✗'}</span><p class="text-[11px] text-neutral-300">${q.q}</p></div><div class="mr-7 space-y-0.5"><p class="text-[10px] text-neutral-500">إجابتك: <span class="${a.ok?'text-emerald-400':'text-rose-400'}">${q.o[a.s]}</span></p>${!a.ok?`<p class="text-[10px] text-neutral-500">الصحيحة: <span class="text-emerald-400">${q.o[a.c]}</span></p>`:''}</div>`;box.appendChild(d)})}
+}
+function restartLvl(){document.getElementById('scoreRing').style.setProperty('--deg','0deg');startQuiz(lvl)}
+function backToLevels(){clearInterval(tmr);document.getElementById('lvlSelect').classList.remove('hidden');document.getElementById('quizArea').classList.add('hidden');document.getElementById('results').classList.add('hidden');document.getElementById('scoreRing').style.setProperty('--deg','0deg')}
+
+function toast(m,t){const c=document.getElementById('toasts'),d=document.createElement('div');d.className=`toast px-3 py-2 rounded-xl text-[10px] font-medium backdrop-blur-md border ${t==='ok'?'border-emerald-500/30 bg-emerald-500/10 text-emerald-400':'border-rose-500/30 bg-rose-500/10 text-rose-400'}`;d.textContent=m;c.appendChild(d);setTimeout(()=>{d.style.opacity='0';d.style.transition='opacity .3s';setTimeout(()=>d.remove(),300)},1800)}
+</script>
+</body>
+</html>
